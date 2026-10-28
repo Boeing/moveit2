@@ -7,18 +7,18 @@ on:
     inputs:
       ros_distro:
         description: ROS distro to build against
-        default: jazzy
+        default: humble
         type: choice
         options: [humble, jazzy, kilted, rolling]
 
 env:
-  ROS_DISTRO: ${{ inputs.ros_distro || 'jazzy' }}
+  ROS_DISTRO: ${{ inputs.ros_distro || 'humble' }}
   PKG_VERSION: 2.15.0
 
 jobs:
   build-deb:
     runs-on: ubuntu-latest
-    container: ros:${{ inputs.ros_distro || 'jazzy' }}-ros-base
+    container: ros:${{ inputs.ros_distro || 'humble' }}-ros-base
     steps:
       - uses: actions/checkout@v4
         with:
