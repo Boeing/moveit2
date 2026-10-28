@@ -51,7 +51,7 @@ jobs:
           cp -a /opt/moveit2 $D/opt/moveit2
           # Runtime deps = apt packages rosdep resolved for the workspace
           DEPS=$(cd ws && rosdep keys --from-paths src --ignore-src --rosdistro $ROS_DISTRO --dependency-types exec 2>/dev/null \
-            | xargs rosdep resolve --rosdistro $ROS_DISTRO 2>/dev/null | grep -v '^#' | sort -u | paste -sd, | sed 's/,/, /g')
+            | xargs rosdep resolve --rosdistro $ROS_DISTRO 2>/dev/null | grep -v '^#' | tr -s ' \t' '\n\n' | grep -E '^[a-z0-9][a-z0-9+.-]+$' | sort -u | paste -sd, | sed 's/,/, /g')
           cat > $D/DEBIAN/control <<CTL
           Package: ros-${ROS_DISTRO}-moveit2
           Version: ${VER}
